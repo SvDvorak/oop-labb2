@@ -1,28 +1,12 @@
-﻿using System;
-namespace Assignment2
+﻿namespace Assignment2
 {
-	public class Vector
+	public struct Vector
 	{
-		private int x;
-		private int y;
+		public float X, Y;
 
-		public Vector(int x, int y)
+		public Vector(float x, float y)
 		{
-			this.x = x;
-			this.y = y;
-		}
-
-
-		public int X
-		{
-			get { return x; }
-			set { x = value; }
-		}
-
-		public int Y
-		{
-			get { return y; }
-			set { y = value; }
+			X = x; Y = y;
 		}
 	}
 }

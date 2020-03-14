@@ -7,55 +7,57 @@ namespace Assignment2
 {
 	public class Engine
 	{
-		private MainForm form;
-		private Timer timer;
+		private MainForm Form;
+		private Timer Timer;
 
-		private ISet<Ball> balls = new HashSet<Ball>();
+		private ISet<Ball> Balls = new HashSet<Ball>();
 
-		private Random random = new Random();
+		private Random Random = new Random();
 
 		public Engine()
 		{
-			form = new MainForm();
-			timer = new Timer();
+			Form = new MainForm();
+			Form.BackColor = Color.Black;
+            Timer = new Timer();
 
-			AddBall();
-		}
+        }
 
 		public void Run()
 		{
-			form.Paint += new PaintEventHandler(Draw);
+            Form.Paint += Draw;
+			Timer.Tick += TimerEventHandler;
+			Timer.Interval = 1000/25;
+			Timer.Start();
 
-			timer.Tick += new EventHandler(TimerEventHandler);
-			timer.Interval = 1000/25;
-			timer.Start();
 
-			Application.Run(form);
+			Application.Run(Form);
 
-		}
-
-		private void AddBall()
-		{
-			var ball = new Ball(400, 300, 10);
-			ball.Speed = new Vector(random.Next(10) - 5, random.Next(10) - 5);
-			balls.Add(ball);
 		}
 
 		private void TimerEventHandler(Object obj, EventArgs args)
 		{
-			if (random.Next(100) < 25) AddBall();
 
-			foreach (var ball in balls)
+			if (Random.Next(100) < 25)
+            {
+				var ball = new Ball(400, 300, 10);
+				ball.Speed = new Vector(Random.Next(10) - 5, Random.Next(10) - 5);
+				Balls.Add(ball);
+			}
+
+			foreach (var ball in Balls)
 			{
 				ball.Move();
 			}
 
-			form.Refresh();
+			Form.Refresh();
 		}
 
 		private void Draw(Object obj, PaintEventArgs args)
 		{
-			foreach (var ball in balls)
+            var verLine = new VerLine(600, 300, 80, 50);
+			verLine.CreateShape(args.Graphics);
+
+			foreach (var ball in Balls)
 			{
 				ball.Draw(args.Graphics);
 			}

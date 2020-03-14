@@ -3,38 +3,29 @@ using System.Drawing;
 
 namespace Assignment2
 {
-	public class Ball : Shape
+	public class Ball
 	{
-		private Pen pen = new Pen(Color.Black);
-		private int radius;
+		Pen Pen = new Pen(Color.WhiteSmoke);
 
-		public Ball(Point position, int radius) : base(position)
+		Position Position;
+		public Vector Speed { get; set; }
+
+		float Radius;
+
+		public Ball(float x, float y, float radius)
 		{
-			this.radius = radius;
+			Position = new Position(x,y); Radius = radius;
 		}
 
-		public Ball(int x, int y, int radius) : base(new Point(x, y))
+		public void Draw(Graphics g)
 		{
-			this.radius = radius;
-		}
-
-		override public void Draw(Graphics g)
-		{
-			g.DrawEllipse(pen,position.X - radius, position.Y - radius, 2 * radius, 2 * radius);
+			g.DrawEllipse(Pen,Position.X - Radius, Position.Y - Radius, 2 * Radius, 2 * Radius);
 		}
 
 		public void Move()
 		{
-			position.X = position.X + speed.X;
-			position.Y = position.Y + speed.Y;
-		}
-
-		private Vector speed;
-
-		public Vector Speed
-		{
-			get { return speed; }
-			set { speed = value; }
+			Position.X += Speed.X;
+			Position.Y += Speed.Y;
 		}
 
 	}

@@ -8,8 +8,29 @@ namespace Assignment2
 	{
 		public MainForm() : base()
 		{
+			Text = "Assignment 2";
 			Width = 800;
 			Height = 600;
+		}
+
+		private void InitializeComponent()
+		{
+            this.SuspendLayout();
+            // 
+            // MainForm
+            // 
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.ClientSize = new System.Drawing.Size(526, 424);
+            this.ForeColor = System.Drawing.Color.Coral;
+            this.Name = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.ResumeLayout(false);
+
+		}
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
