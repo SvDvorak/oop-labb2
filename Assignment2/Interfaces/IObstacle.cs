@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assignment2
 {
-    public interface IObstacles
+    public interface IObstacle
     {
         Position Position { get; set; }
         Pen Pen { get; set; }

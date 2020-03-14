@@ -4,22 +4,22 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using Assignment2.Interfaces;
 
-namespace Assignment2
+namespace Assignment2.Shapes
 {
-    class VerLine : IObstacles
+    class BlueBoxObstacle : IBox
     {
-        public float Width;
-        public float Height;
+        public float Width { get; set; }
+        public float Height { get; set; }
         public Position Position { get; set; }
         public Pen Pen { get; set; }
 
-        public VerLine(float x, float y, int width, int height)
+        public BlueBoxObstacle(float x, float y, int width, int height)
         {
             Width = width;
             Height = height;
-            Pen = new Pen(Color.Yellow);
+            Pen = new Pen(Color.DodgerBlue);
             Position = new Position(x, y);
         }
 
@@ -27,7 +27,5 @@ namespace Assignment2
         {
             g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
         }
-
-
     }
 }
