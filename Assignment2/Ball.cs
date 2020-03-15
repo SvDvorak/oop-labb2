@@ -7,10 +7,10 @@ namespace Assignment2
 	{
 		Pen Pen = new Pen(Color.WhiteSmoke);
 
-		Position Position;
+		public Position Position;
 		public Vector Speed { get; set; }
 
-		float Radius;
+		public float Radius;
 
 		public Ball(float x, float y, float radius)
 		{
@@ -27,6 +27,17 @@ namespace Assignment2
 			Position.X += Speed.X;
 			Position.Y += Speed.Y;
 		}
+
+        public void ReflectX()
+        {
+			float xSpeed = Speed.X * -2;
+            Speed = new Vector(xSpeed, Speed.Y);
+		}
+
+        public void ChangeY()
+        {
+
+        }
 
 	}
 }

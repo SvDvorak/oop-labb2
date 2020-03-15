@@ -12,7 +12,7 @@ namespace Assignment2
     {
         Position Position { get; set; }
         Pen Pen { get; set; }
-        void CreateShape(Graphics g);
+        void DrawObstacle(Graphics g);
 
     }
 }

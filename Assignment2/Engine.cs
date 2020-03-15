@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Assignment2.Interfaces;
 using Assignment2.Shapes;
 
 namespace Assignment2
@@ -74,13 +75,17 @@ namespace Assignment2
 		{
             foreach (IObstacle obs in obstacles)
             {
-                obs.CreateShape(args.Graphics);
+                obs.DrawObstacle(args.Graphics);
+                if (obs is ILineCollision line)
+                {
+					line.DetectCircle(Balls);
+                }
             }
 
 			foreach (var ball in Balls)
 			{
 				ball.Draw(args.Graphics);
-			}
+            }
 		}
 
 	}

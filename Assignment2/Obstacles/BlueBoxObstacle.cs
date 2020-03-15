@@ -23,7 +23,7 @@ namespace Assignment2.Shapes
             Position = new Position(x, y);
         }
 
-        public void CreateShape(Graphics g)
+        public void DrawObstacle(Graphics g)
         {
             g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
         }
