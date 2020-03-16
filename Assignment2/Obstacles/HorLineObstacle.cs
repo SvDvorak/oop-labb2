@@ -44,9 +44,9 @@ namespace Assignment2
                 double Ey = t * Dy + EndPositionY;
                 double LEC = Math.Sqrt(Math.Pow(Ex - ball.Position.X, 2) + Math.Pow(Ey - ball.Position.Y, 2));
 
-                if (LEC < (double)ball.Radius)
-                {
-                    double dt = Math.Sqrt(Math.Pow(ball.Radius, 2) - Math.Pow(LEC, 2));
+                //if (LEC < (double)ball.Radius)
+                //{
+                    //double dt = Math.Sqrt(Math.Pow(ball.Radius, 2) - Math.Pow(LEC, 2));
 
                     //First intersection point
 
@@ -55,12 +55,12 @@ namespace Assignment2
 
                     //double Gx = (t + dt) * Dx + EndPositionX;
                     //double Gy = (t + dt) * Dy + EndPositionY;
-                }
+                //}
                 //tangeringspunkten till cirkeln är Ex & Ey
-                else if (LEC == ball.Radius)
+                if (LEC == ball.Radius)
                 {
                     //Ändrar X-värdet
-                    ball.ReflectX();
+                    ball.ReflectY();
                 }
 
             }

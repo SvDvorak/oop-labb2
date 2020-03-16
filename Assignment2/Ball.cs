@@ -30,14 +30,15 @@ namespace Assignment2
 
         public void ReflectX()
         {
-			float xSpeed = Speed.X * -2;
+			float xSpeed = Speed.X * -1;
             Speed = new Vector(xSpeed, Speed.Y);
 		}
 
-        public void ChangeY()
+        public void ReflectY()
         {
-
-        }
+            float ySpeed = Speed.Y * -1;
+            Speed = new Vector(Speed.X, ySpeed);
+		}
 
 	}
 }

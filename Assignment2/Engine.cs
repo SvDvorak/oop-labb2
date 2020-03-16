@@ -50,7 +50,6 @@ namespace Assignment2
             obstacles.Add(new VertLineObstacle(15, 70, 15, 600));
 
 			Application.Run(Form);
-
 		}
 
 		private void TimerEventHandler(Object obj, EventArgs args)
@@ -63,6 +62,14 @@ namespace Assignment2
 				Balls.Add(ball);
 			}
 
+            foreach (IObstacle obs in obstacles)
+            {
+                if (obs is ILineCollision line)
+                {
+                    line.DetectCircle(Balls);
+                }
+            }
+
 			foreach (var ball in Balls)
 			{
 				ball.Move();
@@ -73,13 +80,10 @@ namespace Assignment2
 
 		private void Draw(Object obj, PaintEventArgs args)
 		{
+
             foreach (IObstacle obs in obstacles)
             {
                 obs.DrawObstacle(args.Graphics);
-                if (obs is ILineCollision line)
-                {
-					line.DetectCircle(Balls);
-                }
             }
 
 			foreach (var ball in Balls)
