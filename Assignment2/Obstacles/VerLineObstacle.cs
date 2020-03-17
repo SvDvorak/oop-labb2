@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using Assignment2.Interfaces;
 
 namespace Assignment2.Obstacles
 {
-    class VerLineObstacle : IBox, IReflectable
+    class VerLineObstacle : IBox
     {
         public float Width { get; set; }
         public float Height { get; set; }
@@ -20,28 +18,22 @@ namespace Assignment2.Obstacles
             Position = new Position(x, y);
         }
 
-        public void DrawObstacle(Graphics g)
+        public void Draw(Graphics g)
         {
             g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
         }
 
         //Implements the same collision as rectangles/boxes lines are treated the same as rectangles with 1px width or height
-
-        public void BoxToCircleCollision(ISet<Ball> Balls)
+        public void HandleCollision(Ball ball)
         {
-            foreach (var ball in Balls)
+            if(Physics.BoxCollidesWithBall(this, ball))
             {
-                double deltaX = ball.Position.X - Math.Max(Position.X, Math.Min(ball.Position.X, Position.X + Width));
-                double deltaY = ball.Position.Y - Math.Max(Position.Y, Math.Min(ball.Position.Y, Position.Y + Height));
-                if ((deltaX * deltaX + deltaY * deltaY) < ball.Radius * ball.Radius)
-                {
-                    Reflect(ball);
-                }
+                Reflect(ball);
             }
         }
 
         //Reflects by inverting the X-value of the ball
-        public void Reflect(Ball ball)
+        private void Reflect(Ball ball)
         {
             float xSpeed = ball.Speed.X * -1;
             ball.Speed = new Vector(xSpeed, ball.Speed.Y);

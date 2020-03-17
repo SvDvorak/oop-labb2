@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace Assignment2.Interfaces
 {
@@ -6,5 +7,6 @@ namespace Assignment2.Interfaces
     {
         Position Position { get; set; }
         Pen Pen { get; set; }
+        void HandleCollision(Ball ball);
     }
 }

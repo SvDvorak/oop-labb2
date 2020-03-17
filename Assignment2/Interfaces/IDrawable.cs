@@ -9,6 +9,6 @@ namespace Assignment2.Interfaces
 {
     public interface IDrawable
     {
-        void DrawObstacle(Graphics g);
+        void Draw(Graphics g);
     }
 }

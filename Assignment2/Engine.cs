@@ -69,10 +69,10 @@ namespace Assignment2
 
             foreach (IObstacle obs in obstacles)
             {
-                if (obs is IBox box)
-                {
-                    box.BoxToCircleCollision(Balls);
-                }
+				foreach (var ball in Balls)
+				{
+					obs.HandleCollision(ball);
+				}
             }
 
 			foreach (var ball in Balls)
@@ -86,16 +86,15 @@ namespace Assignment2
 		private void Draw(Object obj, PaintEventArgs args)
 		{
 
-            foreach (IObstacle obs in obstacles)
+            foreach (IDrawable obs in obstacles)
             {
-                obs.DrawObstacle(args.Graphics);
+                obs.Draw(args.Graphics);
             }
 
-			foreach (var ball in Balls)
+			foreach (IDrawable ball in Balls)
 			{
 				ball.Draw(args.Graphics);
             }
 		}
-
 	}
 }

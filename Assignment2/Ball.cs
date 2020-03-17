@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using Assignment2.Interfaces;
 
 namespace Assignment2
 {
-	public class Ball
+	public class Ball : IDrawable
 	{
 		Pen Pen = new Pen(Color.WhiteSmoke);
 

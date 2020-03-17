@@ -10,6 +10,5 @@ namespace Assignment2.Interfaces
     {
         float Width { get; set; }
         float Height { get; set; }
-        void BoxToCircleCollision(ISet<Ball> Balls);
     }
 }
