@@ -36,8 +36,6 @@
   <ItemGroup>
     <Compile Include="Interfaces\IBox.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
-    <Compile Include="Interfaces\IPassable.cs" />
-    <Compile Include="Interfaces\IReflectable.cs" />
     <Compile Include="Obstacles\BlueBoxObstacle.cs" />
     <Compile Include="Obstacles\HorLineObstacle.cs" />
     <Compile Include="Interfaces\IObstacle.cs" />
