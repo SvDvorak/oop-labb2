@@ -9,8 +9,7 @@ namespace Assignment2
 
 		public Position Position;
 		public Vector Speed { get; set; }
-
-		public float Radius;
+		public float Radius { get; set; }
 
 		public Ball(float x, float y, float radius)
 		{
@@ -38,6 +37,22 @@ namespace Assignment2
         {
             float ySpeed = Speed.Y * -1;
             Speed = new Vector(Speed.X, ySpeed);
+		}
+
+        public void IncreaseSpeed()
+        {
+            double boostSpeed = 0.05;
+            Speed = new Vector(Speed.X + Speed.X * (float)boostSpeed, Speed.Y + Speed.Y * (float)boostSpeed);
+
+        }
+
+		public void DecreaseSpeed()
+        {
+            double boostSpeed = -0.05;
+			if (Speed.X > 1 || Speed.X < -1)
+            {
+                Speed = new Vector(Speed.X + Speed.X * (float)boostSpeed, Speed.Y + Speed.Y * (float)boostSpeed);
+			}
 		}
 
 	}

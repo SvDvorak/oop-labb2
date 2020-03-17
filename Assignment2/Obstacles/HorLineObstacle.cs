@@ -1,71 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Assignment2.Interfaces;
 
-namespace Assignment2
+namespace Assignment2.Obstacles
 {
-    class HorLineObstacle : IStraightLine
+    class HorLineObstacle : IBox
     {
+        public float Width { get; set; }
+        public float Height { get; set; }
         public Position Position { get; set; }
         public Pen Pen { get; set; }
-        public float EndPositionX { get; set; }
-        public float EndPositionY { get; set; }
 
-        public HorLineObstacle(float x, float y, float endPositionX, float endPositionY)
+        public HorLineObstacle(float x, float y, int width, int height)
         {
-            Position = new Position(x, y);
-            this.EndPositionX = endPositionX;
-            this.EndPositionY = endPositionY;
+            Width = width;
+            Height = height;
             Pen = new Pen(Color.Green);
+            Position = new Position(x, y);
         }
 
         public void DrawObstacle(Graphics g)
         {
-            g.DrawLine(Pen, Position.X, Position.Y, EndPositionX, EndPositionY);
+            g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
         }
 
         public void DetectCircle(ISet<Ball> Balls)
         {
-            //B = Position
-            // A = End
             foreach (var ball in Balls)
             {
-                //euclidian distance between A and B
-                double LAB = Math.Sqrt(Math.Pow(Position.X - EndPositionX, 2) + Math.Pow(Position.Y - EndPositionY, 2));
-
-                double Dx = (Position.X - EndPositionX) / LAB;
-                double Dy = (Position.Y - EndPositionY) / LAB;
-
-                double t = Dx * (ball.Position.X - EndPositionX) + Dy * (ball.Position.Y - EndPositionY);
-                double Ex = t * Dx + EndPositionX;
-                double Ey = t * Dy + EndPositionY;
-                double LEC = Math.Sqrt(Math.Pow(Ex - ball.Position.X, 2) + Math.Pow(Ey - ball.Position.Y, 2));
-
-                //if (LEC < (double)ball.Radius)
-                //{
-                    //double dt = Math.Sqrt(Math.Pow(ball.Radius, 2) - Math.Pow(LEC, 2));
-
-                    //First intersection point
-
-                    //double Fx = (t - dt) * Dx + EndPositionX;
-                    //double Fy = (t - dt) * Dy + EndPositionY;
-
-                    //double Gx = (t + dt) * Dx + EndPositionX;
-                    //double Gy = (t + dt) * Dy + EndPositionY;
-                //}
-                //tangeringspunkten till cirkeln är Ex & Ey
-                if (LEC == ball.Radius)
+                double DeltaX = ball.Position.X - Math.Max(Position.X, Math.Min(ball.Position.X, Position.X + Width));
+                double DeltaY = ball.Position.Y - Math.Max(Position.Y, Math.Min(ball.Position.Y, Position.Y + Height));
+                if ((DeltaX * DeltaX + DeltaY * DeltaY) < ball.Radius * ball.Radius)
                 {
-                    //Ändrar X-värdet
                     ball.ReflectY();
                 }
-
             }
-           
-
         }
     }
 }

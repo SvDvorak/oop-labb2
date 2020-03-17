@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assignment2.Interfaces
 {
-    interface IBox : IObstacle
+    public interface IBox : IObstacle
     {
         float Width { get; set; }
         float Height { get; set; }
+        void DetectCircle(ISet<Ball> Balls);
     }
 }

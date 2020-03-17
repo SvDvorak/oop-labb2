@@ -20,9 +20,10 @@ namespace Assignment2
             // MainForm
             // 
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(526, 424);
+            this.ClientSize = new System.Drawing.Size(584, 561);
             this.ForeColor = System.Drawing.Color.Coral;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Assignment2.Interfaces;
-using Assignment2.Shapes;
+using Assignment2.Obstacles;
 
 namespace Assignment2
 {
@@ -11,20 +11,17 @@ namespace Assignment2
 	{
 		private MainForm Form;
 		private Timer Timer;
-
 		private ISet<Ball> Balls = new HashSet<Ball>();
-        private List<IObstacle> obstacles = new List<IObstacle>();
-
-
-
 		private Random Random = new Random();
+
+		//List of obstacles
+        private List<IObstacle> obstacles = new List<IObstacle>();
 
 		public Engine()
 		{
 			Form = new MainForm();
 			Form.BackColor = Color.Black;
             Timer = new Timer();
-
         }
 
 		public void Run()
@@ -34,20 +31,27 @@ namespace Assignment2
 			Timer.Interval = 1000/25;
 			Timer.Start();
 
-            obstacles.Add(new RedBoxObstacle(670, 370, 40, 80));
-            obstacles.Add(new RedBoxObstacle(145, 135, 60, 60));
-            obstacles.Add(new BlueBoxObstacle(50, 500, 250, 25));
-            obstacles.Add(new BlueBoxObstacle(540, 60, 60, 60));
-            obstacles.Add(new HorLineObstacle(10, 550, 700, 550));
-            obstacles.Add(new HorLineObstacle(550, 500, 740, 500));
-            obstacles.Add(new HorLineObstacle(180, 450, 630, 450));
-            obstacles.Add(new HorLineObstacle(50, 30, 300, 30));
-            obstacles.Add(new HorLineObstacle(120, 110, 370, 110));
-            obstacles.Add(new HorLineObstacle(50, 30, 300, 30));
-            obstacles.Add(new HorLineObstacle(400, 30, 670, 30));
-            obstacles.Add(new VertLineObstacle(750, 30, 750, 530));
-            obstacles.Add(new VertLineObstacle(80, 60, 80, 200));
-            obstacles.Add(new VertLineObstacle(15, 70, 15, 600));
+			//Red rectangles
+			obstacles.Add(new RedBoxObstacle(670, 370, 40, 80));
+			obstacles.Add(new RedBoxObstacle(145, 135, 60, 60));
+
+			//Blue rectangles
+            obstacles.Add(new BlueBoxObstacle(500, 70, 70, 70));
+            obstacles.Add(new BlueBoxObstacle(100, 480, 200, 30));
+
+			//Horizontal lines
+			obstacles.Add(new HorLineObstacle(10, 550, 700, 1));
+			obstacles.Add(new HorLineObstacle(450, 500, 280, 1));
+			obstacles.Add(new HorLineObstacle(180, 450, 400, 1));
+			obstacles.Add(new HorLineObstacle(50, 30, 280, 1));
+			obstacles.Add(new HorLineObstacle(120, 110, 240, 1));
+			obstacles.Add(new HorLineObstacle(400, 30, 300, 1));
+
+			//Vertical lines
+			obstacles.Add(new VerLineObstacle(750, 30, 1, 530));
+			obstacles.Add(new VerLineObstacle(80, 60, 1, 200));
+			obstacles.Add(new VerLineObstacle(15, 70, 1, 600));
+
 
 			Application.Run(Form);
 		}
@@ -59,14 +63,15 @@ namespace Assignment2
             {
 				var ball = new Ball(400, 300, 10);
 				ball.Speed = new Vector(Random.Next(10) - 5, Random.Next(10) - 5);
-				Balls.Add(ball);
+				//if (Balls.Count < 3)
+					Balls.Add(ball);
 			}
 
             foreach (IObstacle obs in obstacles)
             {
-                if (obs is ILineCollision line)
+                if (obs is IBox box)
                 {
-                    line.DetectCircle(Balls);
+                    box.DetectCircle(Balls);
                 }
             }
 
