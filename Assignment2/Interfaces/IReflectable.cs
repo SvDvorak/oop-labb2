@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assignment2.Interfaces
 {
-    public interface IBox : IObstacle
+    public interface IReflectable
     {
-        float Width { get; set; }
-        float Height { get; set; }
-        void BoxToCircleCollision(ISet<Ball> Balls);
+         void Reflect(Ball ball);
     }
 }

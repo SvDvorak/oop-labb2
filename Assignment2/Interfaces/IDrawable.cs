@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Assignment2.Interfaces
 {
-    public interface IBox : IObstacle
+    public interface IDrawable
     {
-        float Width { get; set; }
-        float Height { get; set; }
-        void BoxToCircleCollision(ISet<Ball> Balls);
+        void DrawObstacle(Graphics g);
     }
 }

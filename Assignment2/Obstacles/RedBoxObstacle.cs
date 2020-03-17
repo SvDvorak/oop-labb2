@@ -5,7 +5,7 @@ using Assignment2.Interfaces;
 
 namespace Assignment2.Obstacles
 {
-    class RedBoxObstacle: IBox
+    class RedBoxObstacle: IBox, IPassable
     {
         public float Width { get; set; }
         public float Height { get; set; }
@@ -25,7 +25,13 @@ namespace Assignment2.Obstacles
             g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
         }
 
-        public void DetectCircle(ISet<Ball> Balls)
+        public void ObjectPassedThrough(Ball ball)
+        {
+            double boostSpeed = 0.05;
+            ball.Speed = new Vector(ball.Speed.X + ball.Speed.X * (float)boostSpeed, ball.Speed.Y + ball.Speed.Y * (float)boostSpeed);
+        }
+
+        public void BoxToCircleCollision(ISet<Ball> Balls)
         {
 
             foreach (var ball in Balls)
@@ -34,13 +40,10 @@ namespace Assignment2.Obstacles
                 double DeltaY = ball.Position.Y - Math.Max(Position.Y, Math.Min(ball.Position.Y, Position.Y + Height));
                 if ((DeltaX * DeltaX + DeltaY * DeltaY) < ball.Radius * ball.Radius)
                 {
-                    ball.IncreaseSpeed();
+                    ObjectPassedThrough(ball);
                 }
-
             }
-
         }
 
     }
-
 }

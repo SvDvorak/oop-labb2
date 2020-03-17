@@ -49,8 +49,8 @@ namespace Assignment2
 
 			//Vertical lines
 			obstacles.Add(new VerLineObstacle(750, 30, 1, 530));
-			obstacles.Add(new VerLineObstacle(80, 60, 1, 200));
-			obstacles.Add(new VerLineObstacle(15, 70, 1, 600));
+			obstacles.Add(new VerLineObstacle(80, 70, 1, 200));
+			obstacles.Add(new VerLineObstacle(15, 80, 1, 600));
 
 
 			Application.Run(Form);
@@ -71,7 +71,7 @@ namespace Assignment2
             {
                 if (obs is IBox box)
                 {
-                    box.DetectCircle(Balls);
+                    box.BoxToCircleCollision(Balls);
                 }
             }
 

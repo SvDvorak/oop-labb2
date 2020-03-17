@@ -2,11 +2,9 @@
 
 namespace Assignment2.Interfaces
 {
-    public interface IObstacle
+    public interface IObstacle: IDrawable
     {
         Position Position { get; set; }
         Pen Pen { get; set; }
-        void DrawObstacle(Graphics g);
-
     }
 }

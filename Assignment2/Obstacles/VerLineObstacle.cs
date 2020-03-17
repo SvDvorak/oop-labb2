@@ -5,7 +5,7 @@ using Assignment2.Interfaces;
 
 namespace Assignment2.Obstacles
 {
-    class VerLineObstacle : IBox
+    class VerLineObstacle : IBox, IReflectable
     {
         public float Width { get; set; }
         public float Height { get; set; }
@@ -25,7 +25,9 @@ namespace Assignment2.Obstacles
             g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
         }
 
-        public void DetectCircle(ISet<Ball> Balls)
+        //Implements the same collision as rectangles/boxes lines are treated the same as rectangles with 1px width or height
+
+        public void BoxToCircleCollision(ISet<Ball> Balls)
         {
             foreach (var ball in Balls)
             {
@@ -33,9 +35,16 @@ namespace Assignment2.Obstacles
                 double deltaY = ball.Position.Y - Math.Max(Position.Y, Math.Min(ball.Position.Y, Position.Y + Height));
                 if ((deltaX * deltaX + deltaY * deltaY) < ball.Radius * ball.Radius)
                 {
-                    ball.ReflectX();
+                    Reflect(ball);
                 }
             }
+        }
+
+        //Reflects by inverting the X-value of the ball
+        public void Reflect(Ball ball)
+        {
+            float xSpeed = ball.Speed.X * -1;
+            ball.Speed = new Vector(xSpeed, ball.Speed.Y);
         }
     }
 }

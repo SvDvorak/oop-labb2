@@ -27,33 +27,5 @@ namespace Assignment2
 			Position.Y += Speed.Y;
 		}
 
-        public void ReflectX()
-        {
-			float xSpeed = Speed.X * -1;
-            Speed = new Vector(xSpeed, Speed.Y);
-		}
-
-        public void ReflectY()
-        {
-            float ySpeed = Speed.Y * -1;
-            Speed = new Vector(Speed.X, ySpeed);
-		}
-
-        public void IncreaseSpeed()
-        {
-            double boostSpeed = 0.05;
-            Speed = new Vector(Speed.X + Speed.X * (float)boostSpeed, Speed.Y + Speed.Y * (float)boostSpeed);
-
-        }
-
-		public void DecreaseSpeed()
-        {
-            double boostSpeed = -0.05;
-			if (Speed.X > 1 || Speed.X < -1)
-            {
-                Speed = new Vector(Speed.X + Speed.X * (float)boostSpeed, Speed.Y + Speed.Y * (float)boostSpeed);
-			}
-		}
-
-	}
+    }
 }

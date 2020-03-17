@@ -5,7 +5,7 @@ using Assignment2.Interfaces;
 
 namespace Assignment2.Obstacles
 {
-    class HorLineObstacle : IBox
+    class HorLineObstacle : IBox, IReflectable
     {
         public float Width { get; set; }
         public float Height { get; set; }
@@ -25,17 +25,26 @@ namespace Assignment2.Obstacles
             g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
         }
 
-        public void DetectCircle(ISet<Ball> Balls)
+        //Implements the same collision as rectangles/boxes because I treat the lines as rectangles with 1px width or height
+        public void BoxToCircleCollision(ISet<Ball> Balls)
         {
             foreach (var ball in Balls)
             {
                 double DeltaX = ball.Position.X - Math.Max(Position.X, Math.Min(ball.Position.X, Position.X + Width));
                 double DeltaY = ball.Position.Y - Math.Max(Position.Y, Math.Min(ball.Position.Y, Position.Y + Height));
+
                 if ((DeltaX * DeltaX + DeltaY * DeltaY) < ball.Radius * ball.Radius)
                 {
-                    ball.ReflectY();
+                    Reflect(ball);
                 }
             }
+        }
+
+        //Reflects by inverting the Y-value of the ball
+        public void Reflect(Ball ball)
+        {
+            float ySpeed = ball.Speed.Y * -1;
+            ball.Speed = new Vector(ball.Speed.X, ySpeed);
         }
     }
 }
