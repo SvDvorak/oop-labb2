@@ -4,11 +4,7 @@ using Assignment2.Interfaces;
 
 namespace Assignment2
 {
-    public interface IBall
-    {
-
-    }
-	public class Ball : IDrawable, IBall
+	public class Ball : IDrawable
 	{
 		Pen Pen = new Pen(Color.WhiteSmoke);
 
