@@ -1,13 +1,13 @@
 ﻿using System.Drawing;
-using Assignment2.Interfaces;
+using Assignment2.Drawing;
 using Assignment2.Physics;
 
 namespace Assignment2.Obstacles
 {
     class HorLineObstacle : IObstacle
     {
-        private ICollider Collider;
-        private IDrawable Drawable;
+        private readonly CollisionBox Collider;
+        private readonly RectangleGraphic Drawable;
 
         public HorLineObstacle(float x, float y, int width, int height)
         {

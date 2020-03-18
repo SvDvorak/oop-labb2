@@ -1,9 +1,8 @@
 ﻿using System.Drawing;
-using Assignment2.Interfaces;
 
-namespace Assignment2.Obstacles
+namespace Assignment2.Drawing
 {
-    internal class RectangleGraphic : IDrawable
+    class RectangleGraphic
     {
         private readonly Pen pen;
         private readonly Rectangle rect;

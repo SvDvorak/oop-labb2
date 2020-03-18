@@ -1,29 +1,25 @@
 ﻿using System;
 using System.Drawing;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using Assignment2.Interfaces;
-using Assignment2.Obstacles;
 
 namespace Assignment2
 {
-	public class Engine
+    public class Engine
 	{
 		private MainForm Form;
 		private Timer Timer;
 		private Random Random = new Random();
-
-        private List<Ball> Balls = new List<Ball>();
-        private List<IObstacle> Obstacles = new List<IObstacle>();
+        private Scene Scene;
 
 		public Engine()
 		{
 			Form = new MainForm();
 			Form.BackColor = Color.Black;
             Timer = new Timer();
+            Scene = new Scene();
         }
 
-		public void Run()
+        public void Run()
 		{
             Form.Paint += Draw;
 			Timer.Tick += TimerEventHandler;
@@ -31,67 +27,58 @@ namespace Assignment2
 			Timer.Start();
 
 			//Red rectangles
-			Obstacles.Add(new RedBoxObstacle(670, 370, 40, 80));
-			Obstacles.Add(new RedBoxObstacle(145, 135, 60, 60));
+			Scene.AddBoostBox(670, 370, 40, 80);
+			Scene.AddBoostBox(145, 135, 60, 60);
 
 			//Blue rectangles
-            Obstacles.Add(new BlueBoxObstacle(500, 70, 70, 70));
-            Obstacles.Add(new BlueBoxObstacle(100, 480, 200, 30));
+            Scene.AddSlowDownBox(500, 70, 70, 70);
+            Scene.AddSlowDownBox(100, 480, 200, 30);
 
 			//Horizontal lines
-			Obstacles.Add(new HorLineObstacle(10, 550, 700, 1));
-			Obstacles.Add(new HorLineObstacle(450, 500, 280, 1));
-			Obstacles.Add(new HorLineObstacle(180, 450, 400, 1));
-			Obstacles.Add(new HorLineObstacle(50, 30, 280, 1));
-			Obstacles.Add(new HorLineObstacle(120, 110, 240, 1));
-			Obstacles.Add(new HorLineObstacle(400, 30, 300, 1));
+			Scene.AddHorLine(10, 550, 700);
+			Scene.AddHorLine(450, 500, 280);
+            Scene.AddHorLine(180, 450, 400);
+			Scene.AddHorLine(50, 30, 280);
+			Scene.AddHorLine(120, 110, 240);
+			Scene.AddHorLine(400, 30, 300);
 
 			//Vertical lines
-			Obstacles.Add(new VerLineObstacle(750, 30, 1, 530));
-			Obstacles.Add(new VerLineObstacle(80, 70, 1, 200));
-			Obstacles.Add(new VerLineObstacle(15, 80, 1, 600));
+			Scene.AddVerLine(750, 30, 530);
+			Scene.AddVerLine(80, 70, 200);
+			Scene.AddVerLine(15, 80, 600);
 
 
 			Application.Run(Form);
 		}
 
-		private void TimerEventHandler(Object obj, EventArgs args)
+        private void TimerEventHandler(object obj, EventArgs args)
 		{
-
 			if (Random.Next(100) < 25)
             {
-				var ball = new Ball(400, 300, 10);
-				ball.Speed = new Vector(Random.Next(10) - 5, Random.Next(10) - 5);
-				//if (Balls.Count < 3)
-					Balls.Add(ball);
-			}
+                Scene.AddBall(Random.Next(10) - 5, Random.Next(10) - 5);
+            }
 
-            foreach (var obs in Obstacles)
+            foreach (var obs in Scene.Collideables)
             {
-				foreach (var ball in Balls)
+				foreach (var ball in Scene.Balls)
 				{
 					obs.HandleCollision(ball);
 				}
             }
 
-			foreach (var ball in Balls)
+			foreach (var updateable in Scene.Updateables)
 			{
-				ball.Move();
+				updateable.Update();
 			}
 
 			Form.Refresh();
 		}
 
-		private void Draw(Object obj, PaintEventArgs args)
+        private void Draw(object obj, PaintEventArgs args)
 		{
-            foreach (var obs in Obstacles)
+            foreach (var drawable in Scene.Drawables)
             {
-                obs.Draw(args.Graphics);
-            }
-
-            foreach (var obs in Balls)
-            {
-                obs.Draw(args.Graphics);
+                drawable.Draw(args.Graphics);
             }
 		}
 	}

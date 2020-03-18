@@ -1,13 +1,13 @@
 ﻿using System.Drawing;
-using Assignment2.Interfaces;
+using Assignment2.Drawing;
 using Assignment2.Physics;
 
 namespace Assignment2.Obstacles
 {
     class RedBoxObstacle: IObstacle
     {
-        private ICollider Collider;
-        private IDrawable Drawable;
+        private readonly CollisionBox Collider;
+        private readonly RectangleGraphic Drawable;
 
         public RedBoxObstacle(float x, float y, int width, int height)
         {
@@ -25,11 +25,11 @@ namespace Assignment2.Obstacles
         {
             if(Collider.CollidesWith(ball))
             {
-                SlowDown(ball);
+                SpeedUp(ball);
             }
         }
 
-        private void SlowDown(Ball ball)
+        private void SpeedUp(Ball ball)
         {
             double boostSpeed = 0.05;
             ball.Speed = new Vector(ball.Speed.X + ball.Speed.X * (float)boostSpeed, ball.Speed.Y + ball.Speed.Y * (float)boostSpeed);

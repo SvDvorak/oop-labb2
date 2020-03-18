@@ -1,13 +1,13 @@
 ﻿using System.Drawing;
-using Assignment2.Interfaces;
+using Assignment2.Drawing;
 using Assignment2.Physics;
 
 namespace Assignment2.Obstacles
 {
     class BlueBoxObstacle : IObstacle
     {
-        private ICollider Collider;
-        private IDrawable Drawable;
+        private readonly CollisionBox Collider;
+        private readonly RectangleGraphic Drawable;
 
         public BlueBoxObstacle(float x, float y, int width, int height)
         {
@@ -25,11 +25,11 @@ namespace Assignment2.Obstacles
         {
             if(Collider.CollidesWith(ball))
             {
-                SpeedUp(ball);
+                SlowDown(ball);
             }
         }
 
-        private void SpeedUp(Ball ball)
+        private void SlowDown(Ball ball)
         {
             double boostSpeed = -0.05;
             if (ball.Speed.X > 1 || ball.Speed.X < -1)

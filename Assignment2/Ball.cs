@@ -1,32 +1,43 @@
-﻿using System;
-using System.Drawing;
-using Assignment2.Interfaces;
+﻿using System.Drawing;
+using Assignment2.Drawing;
 
 namespace Assignment2
 {
-	public class Ball : IDrawable
-	{
-		Pen Pen = new Pen(Color.WhiteSmoke);
+	public class Ball : IDrawable, IUpdateable
+    {
+        private readonly EllipseGraphic Drawable;
 
-		public Position Position;
+		public Position Position { get; set; }
+        public float Radius { get; set; }
 		public Vector Speed { get; set; }
-		public float Radius { get; set; }
 
 		public Ball(float x, float y, float radius)
 		{
-			Position = new Position(x,y); Radius = radius;
+			Position = new Position(x,y);
+            Radius = radius;
+
+			Drawable = new EllipseGraphic(Color.WhiteSmoke, Position, radius);
 		}
 
-		public void Draw(Graphics g)
+        public void Draw(Graphics g)
 		{
-			g.DrawEllipse(Pen,Position.X - Radius, Position.Y - Radius, 2 * Radius, 2 * Radius);
+			Drawable.Draw(g);
 		}
 
-		public void Move()
-		{
-			Position.X += Speed.X;
-			Position.Y += Speed.Y;
-		}
+        public void Update()
+        {
+            Move();
+        }
 
+        public void Move()
+        {
+            Position = new Position(Position.X + Speed.X, Position.Y + Speed.Y);
+            Drawable.Position = Position;
+        }
+    }
+
+    public interface IUpdateable
+    {
+        void Update();
     }
 }

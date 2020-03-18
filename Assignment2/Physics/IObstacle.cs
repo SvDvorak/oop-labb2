@@ -1,4 +1,6 @@
-﻿namespace Assignment2.Interfaces
+﻿using Assignment2.Drawing;
+
+namespace Assignment2.Physics
 {
     public interface IObstacle : IDrawable
     {

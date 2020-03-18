@@ -2,7 +2,7 @@
 
 namespace Assignment2.Physics
 {
-    public class CollisionBox : ICollider
+    class CollisionBox
     {
         private readonly Rectangle rect;
 
