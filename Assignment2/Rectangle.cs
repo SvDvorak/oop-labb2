@@ -8,11 +8,12 @@ namespace Assignment2
 {
     public struct Rectangle
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public Position Pos;
+        public float Width, Height;
 
-        public Rectangle(int width, int height)
+        public Rectangle(float x, float y, float width, float height)
         {
+            Pos = new Position(x, y);
             Width = width;
             Height = height;
         }

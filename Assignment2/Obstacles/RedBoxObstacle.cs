@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using Assignment2.Interfaces;
+using Assignment2.Physics;
 
 namespace Assignment2.Obstacles
 {
-    class RedBoxObstacle: IBox
+    class RedBoxObstacle: IObstacle
     {
-        public float Width { get; set; }
-        public float Height { get; set; }
-        public Position Position { get; set; }
-        public Pen Pen { get; set; }
+        private ICollider Collider;
+        private IDrawable Drawable;
 
         public RedBoxObstacle(float x, float y, int width, int height)
         {
-            Width = width;
-            Height = height;
-            Pen = new Pen(Color.Red);
-            Position = new Position(x, y);
+            var rectangle = new Rectangle(x, y, width, height);
+            Drawable = new RectangleGraphic(Color.Red, rectangle);
+            Collider = new CollisionBox(rectangle);
         }
 
         public void Draw(Graphics g)
         {
-            g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
+            Drawable.Draw(g);
         }
 
         public void HandleCollision(Ball ball)
         {
-            if(Physics.BoxCollidesWithBall(this, ball))
+            if(Collider.CollidesWith(ball))
             {
                 SlowDown(ball);
             }

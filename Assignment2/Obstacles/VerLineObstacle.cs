@@ -1,32 +1,30 @@
 ﻿using System.Drawing;
 using Assignment2.Interfaces;
+using Assignment2.Physics;
 
 namespace Assignment2.Obstacles
 {
-    class VerLineObstacle : IBox
+    class VerLineObstacle : IObstacle
     {
-        public float Width { get; set; }
-        public float Height { get; set; }
-        public Position Position { get; set; }
-        public Pen Pen { get; set; }
+        private ICollider Collider;
+        private IDrawable Drawable;
 
         public VerLineObstacle(float x, float y, int width, int height)
         {
-            Width = width;
-            Height = height;
-            Pen = new Pen(Color.Yellow);
-            Position = new Position(x, y);
+            var rectangle = new Rectangle(x, y, width, height);
+            Drawable = new RectangleGraphic(Color.Yellow, rectangle);
+            Collider = new CollisionBox(rectangle);
         }
 
         public void Draw(Graphics g)
         {
-            g.DrawRectangle(Pen, Position.X, Position.Y, Width, Height);
+            Drawable.Draw(g);
         }
 
         //Implements the same collision as rectangles/boxes lines are treated the same as rectangles with 1px width or height
         public void HandleCollision(Ball ball)
         {
-            if(Physics.BoxCollidesWithBall(this, ball))
+            if(Collider.CollidesWith(ball))
             {
                 Reflect(ball);
             }

@@ -8,7 +8,5 @@ namespace Assignment2.Interfaces
 {
     public interface IBox : IObstacle
     {
-        float Width { get; set; }
-        float Height { get; set; }
     }
 }
