@@ -33,7 +33,7 @@ namespace Assignment2.Obstacles
             }
         }
 
-        public void SpeedUp(Ball ball)
+        private void SpeedUp(Ball ball)
         {
             double boostSpeed = -0.05;
             if (ball.Speed.X > 1 || ball.Speed.X < -1)
