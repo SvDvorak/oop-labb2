@@ -13,7 +13,8 @@ namespace Assignment2
 		private Timer Timer;
 		private Random Random = new Random();
 
-        private List<object> GameObjects = new List<object>();
+        private List<Ball> Balls = new List<Ball>();
+        private List<IObstacle> Obstacles = new List<IObstacle>();
 
 		public Engine()
 		{
@@ -30,25 +31,25 @@ namespace Assignment2
 			Timer.Start();
 
 			//Red rectangles
-			GameObjects.Add(new RedBoxObstacle(670, 370, 40, 80));
-			GameObjects.Add(new RedBoxObstacle(145, 135, 60, 60));
+			Obstacles.Add(new RedBoxObstacle(670, 370, 40, 80));
+			Obstacles.Add(new RedBoxObstacle(145, 135, 60, 60));
 
 			//Blue rectangles
-            GameObjects.Add(new BlueBoxObstacle(500, 70, 70, 70));
-            GameObjects.Add(new BlueBoxObstacle(100, 480, 200, 30));
+            Obstacles.Add(new BlueBoxObstacle(500, 70, 70, 70));
+            Obstacles.Add(new BlueBoxObstacle(100, 480, 200, 30));
 
 			//Horizontal lines
-			GameObjects.Add(new HorLineObstacle(10, 550, 700, 1));
-			GameObjects.Add(new HorLineObstacle(450, 500, 280, 1));
-			GameObjects.Add(new HorLineObstacle(180, 450, 400, 1));
-			GameObjects.Add(new HorLineObstacle(50, 30, 280, 1));
-			GameObjects.Add(new HorLineObstacle(120, 110, 240, 1));
-			GameObjects.Add(new HorLineObstacle(400, 30, 300, 1));
+			Obstacles.Add(new HorLineObstacle(10, 550, 700, 1));
+			Obstacles.Add(new HorLineObstacle(450, 500, 280, 1));
+			Obstacles.Add(new HorLineObstacle(180, 450, 400, 1));
+			Obstacles.Add(new HorLineObstacle(50, 30, 280, 1));
+			Obstacles.Add(new HorLineObstacle(120, 110, 240, 1));
+			Obstacles.Add(new HorLineObstacle(400, 30, 300, 1));
 
 			//Vertical lines
-			GameObjects.Add(new VerLineObstacle(750, 30, 1, 530));
-			GameObjects.Add(new VerLineObstacle(80, 70, 1, 200));
-			GameObjects.Add(new VerLineObstacle(15, 80, 1, 600));
+			Obstacles.Add(new VerLineObstacle(750, 30, 1, 530));
+			Obstacles.Add(new VerLineObstacle(80, 70, 1, 200));
+			Obstacles.Add(new VerLineObstacle(15, 80, 1, 600));
 
 
 			Application.Run(Form);
@@ -62,18 +63,18 @@ namespace Assignment2
 				var ball = new Ball(400, 300, 10);
 				ball.Speed = new Vector(Random.Next(10) - 5, Random.Next(10) - 5);
 				//if (Balls.Count < 3)
-					GameObjects.Add(ball);
+					Balls.Add(ball);
 			}
 
-            foreach (IObstacle obs in GameObjects)
+            foreach (var obs in Obstacles)
             {
-				foreach (Ball ball in GameObjects)
+				foreach (var ball in Balls)
 				{
 					obs.HandleCollision(ball);
 				}
             }
 
-			foreach (Ball ball in GameObjects)
+			foreach (var ball in Balls)
 			{
 				ball.Move();
 			}
@@ -83,7 +84,12 @@ namespace Assignment2
 
 		private void Draw(Object obj, PaintEventArgs args)
 		{
-            foreach (IDrawable obs in GameObjects)
+            foreach (var obs in Obstacles)
+            {
+                obs.Draw(args.Graphics);
+            }
+
+            foreach (var obs in Balls)
             {
                 obs.Draw(args.Graphics);
             }
